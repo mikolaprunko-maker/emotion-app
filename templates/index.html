@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI-перекладач емоцій</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎭</text></svg>">
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <div class="logo">🎭</div>
+      <h1>AI-перекладач емоцій</h1>
+      <p class="sub">Напишіть, що відчуваєте або що сталося, і штучний інтелект визначить емоцію в тексті, пояснить її та дасть пораду.</p>
+    </header>
+
+    <section class="card">
+      <form id="form">
+        <label for="text" class="label">Ваш текст</label>
+        <textarea id="text" maxlength="{{ max_len }}" rows="5"
+          placeholder="Наприклад: Завтра іспит, а я ще нічого не встиг повторити..."></textarea>
+        <div class="row">
+          <div class="chips" id="examples">
+            <span class="chips-title">Приклади:</span>
+            <button type="button" class="chip">Нарешті здав сесію на відмінно!</button>
+            <button type="button" class="chip">Завтра іспит, а я нічого не встиг повторити</button>
+            <button type="button" class="chip">Мене знову підвели в останній момент, дуже неприємно</button>
+            <button type="button" class="chip">Дякую всім, хто підтримав мене цього року</button>
+          </div>
+          <span class="counter"><span id="count">0</span>/{{ max_len }}</span>
+        </div>
+        <button type="submit" id="submit" class="btn">
+          <span class="btn-text">Визначити емоцію</span>
+          <span class="spinner" aria-hidden="true"></span>
+        </button>
+      </form>
+      <div id="error" class="error" role="alert" hidden></div>
+    </section>
+
+    <section id="result" class="card result" hidden>
+      <div class="result-head">
+        <div class="big-emoji" id="r-emoji"></div>
+        <div>
+          <div class="muted">Головна емоція</div>
+          <div class="emotion" id="r-emotion"></div>
+          <div class="secondary" id="r-secondary"></div>
+        </div>
+      </div>
+      <div class="conf">
+        <div class="conf-label"><span>Впевненість ШІ</span><span id="r-conf"></span></div>
+        <div class="bar"><div class="bar-fill" id="r-bar"></div></div>
+      </div>
+      <div class="block"><h3>🔍 Чому так</h3><p id="r-explanation"></p></div>
+      <div class="block"><h3>💡 Порада</h3><p id="r-advice"></p></div>
+      <blockquote id="r-quote"></blockquote>
+      <div class="meta" id="r-meta"></div>
+    </section>
+
+    <section id="history-wrap" class="card" hidden>
+      <h3>🕓 Історія аналізів</h3>
+      <ul id="history" class="history"></ul>
+    </section>
+
+    <footer class="foot">Практична робота № 9 · Прунько М.С., АКП-25-3К, ІФНТУНГ · Flask + Google Gemini API</footer>
+  </main>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
